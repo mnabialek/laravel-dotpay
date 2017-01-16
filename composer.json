@@ -1,0 +1,25 @@
+{
+  "name": "mnabialek/laravel-dotpay",
+  "description": "Laravel Dotpay  payment gateway integration",
+  "require": {
+    "laravel/framework": "5.*",
+    "guzzlehttp/guzzle": "^6.2"
+  },
+  "autoload": {
+    "psr-4": {
+      "Mnabialek\\LaravelDotpay\\": "src/"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Tests\\": "tests"
+    }
+  },
+  "license": "MIT",  
+  "minimum-stability": "dev",
+  "prefer-stable": true,
+  "require-dev": {
+    "phpunit/phpunit": "^5.4",
+    "mockery/mockery": "^0.9.5"
+  }
+}
