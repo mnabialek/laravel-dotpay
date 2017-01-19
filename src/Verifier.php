@@ -14,7 +14,7 @@ class Verifier
      * @return bool
      * @throws MissingParameter
      */
-    protected function check(array $parameters)
+    public function check(array $parameters)
     {
         foreach ($this->required() as $param) {
             if (empty($parameters[$param])) {
