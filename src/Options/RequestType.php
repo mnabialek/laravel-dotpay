@@ -2,7 +2,7 @@
 
 namespace Mnabialek\LaravelDotpay\Options;
 
-class Type
+class RequestType
 {
     const BACK_BUTTON = 0;
     const CALLBACK_URL = 1;
