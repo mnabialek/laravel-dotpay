@@ -42,7 +42,7 @@ class Signer
      */
     protected function values(array $parameters)
     {
-        $values = $this->pin;
+        $values = [$this->pin];
 
         foreach ($this->fields() as $field) {
             if (array_key_exists($field, $parameters)) {
