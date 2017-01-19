@@ -239,10 +239,11 @@ class Request
         $this->setLang(array_get($this->parameters, 'lang', $this->config['lang']));
 
         // set api version
-        $this->parameters['api_version'] = $this->isTest() ? 'dev' : $this->config['api_version'];
+        $this->setParameter('api_version', $this->isTest() ? 'dev' : $this->config['api_version']);
 
-        // set shop id
-        $this->parameters['id'] = $this->config['store_id'];
+        // set shop id and type
+        $this->setParameter('id', $this->config['store_id']);
+        $this->setParameter('type', $this->config['type']);
 
         // verify all parameters
         $this->app->make(Verifier::class)->check($this->parameters);
