@@ -30,21 +30,59 @@ class Signer
      */
     public function create(array $parameters)
     {
-        return hash('sha256', implode('', $this->values($parameters)));
+        return hash('sha256', implode('', $this->createValues($parameters)));
+    }
+
+    /**
+     * Verify if signature for given parameters is correct.
+     *
+     * @param array $parameters
+     * @param string $signature
+     *
+     * @return bool
+     */
+    public function verify(array $parameters, $signature)
+    {
+        return $signature === hash('sha256', implode('', $this->verifyValues($parameters)));
+    }
+
+    /**
+     * Get values for creating new signature.
+     *
+     * @param array $parameters
+     *
+     * @return array
+     */
+    protected function createValues(array $parameters)
+    {
+        return $this->values($parameters, $this->createFields());
+    }
+
+    /**
+     * Get values to verify given signature.
+     *
+     * @param array $parameters
+     *
+     * @return array
+     */
+    protected function verifyValues(array $parameters)
+    {
+        return $this->values($parameters, $this->verifyFields());
     }
 
     /**
      * Get values to be signed.
      *
      * @param array $parameters
+     * @param array $fields
      *
      * @return array
      */
-    protected function values(array $parameters)
+    protected function values(array $parameters, array $fields)
     {
         $values = [$this->pin];
 
-        foreach ($this->fields() as $field) {
+        foreach ($fields as $field) {
             if (array_key_exists($field, $parameters)) {
                 $values[] = $parameters[$field];
             }
@@ -58,7 +96,7 @@ class Signer
      *
      * @return array
      */
-    protected function fields()
+    protected function createFields()
     {
         return [
             'api_version',
@@ -122,6 +160,42 @@ class Signer
             'recurring_interval',
             'recurring_start',
             'recurring_count',
+        ];
+    }
+
+    /**
+     * Get fields that should be used for verification.
+     *
+     * @return array
+     */
+    protected function verifyFields()
+    {
+        return [
+            'id',
+            'operation_number',
+            'operation_type',
+            'operation_status',
+            'operation_amount',
+            'operation_currency',
+            'operation_withdrawal_amount',
+            'operation_commission_amount',
+            'operation_original_amount',
+            'operation_original_currency',
+            'operation_datetime',
+            'operation_related_number',
+            'control',
+            'description',
+            'email',
+            'p_info',
+            'p_email',
+            'credit_card_issuer_identification_number',
+            'credit_card_masked_number',
+            'credit_card_brand_codename',
+            'credit_card_brand_code',
+            'credit_card_id',
+            'channel',
+            'channel_country',
+            'geoip_country',
         ];
     }
 }
