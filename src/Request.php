@@ -249,8 +249,7 @@ class Request
         $this->app->make(Verifier::class)->check($this->parameters);
 
         // add checksum
-        $this->parameters['chk'] = $this->app->make(Signer::class,
-            [$this->config['pin']])->create($this->parameters);
+        $this->parameters['chk'] = $this->app->make(Signer::class)->create($this->parameters);
 
         return $this->parameters;
     }

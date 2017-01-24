@@ -3,6 +3,7 @@
 namespace Mnabialek\LaravelDotpay\Providers;
 
 use Illuminate\Support\ServiceProvider;
+use Mnabialek\LaravelDotpay\Signer;
 
 class DotpayServiceProvider extends ServiceProvider
 {
@@ -18,6 +19,11 @@ class DotpayServiceProvider extends ServiceProvider
         $this->publishes([
             $this->configFile() => $this->app['path.config'] . DIRECTORY_SEPARATOR . 'dotpay.php',
         ], 'config');
+
+        // register binding
+        $this->app->bind(Signer::class, function () {
+            return new Signer($this->app['config']->get('dotpay.pin'));
+        });
     }
 
     /**
