@@ -22,16 +22,6 @@ class Request
     protected $config;
 
     /**
-     * Url for production environment.
-     */
-    const PRODUCTION_URL = 'https://ssl.dotpay.pl/t2/';
-
-    /**
-     * Url for develop environment.
-     */
-    const DEVELOP_URL = 'https://ssl.dotpay.pl/test_payment/';
-
-    /**
      * Request constructor.
      *
      * @param Application $app
@@ -198,7 +188,7 @@ class Request
      */
     public function basicUrl()
     {
-        return $this->isTest() ? self::DEVELOP_URL : self::PRODUCTION_URL;
+        return $this->isTest() ? $this->config['url']['develop'] : $this->config['url']['production'];
     }
 
     /**
